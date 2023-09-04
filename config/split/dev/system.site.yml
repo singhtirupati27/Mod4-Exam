@@ -2,12 +2,12 @@ _core:
   default_config_hash: VDJxTZtQR21qB4lvOq8zszJZLvLKrSPQpdn2E3T71Ww
 langcode: en
 uuid: 997057b2-b92e-4101-a5ad-4b4dddccb007
-name: Drupal
-mail: ''
+name: 'Inno News'
+mail: tirupati.singh@innoraft.com
 slogan: ''
 page:
-  403: ''
-  404: ''
+  403: /node/21
+  404: /node/20
   front: /node
 admin_compact_mode: false
 weight_select_max: 100

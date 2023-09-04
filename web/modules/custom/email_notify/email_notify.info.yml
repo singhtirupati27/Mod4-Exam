@@ -1,0 +1,5 @@
+name: Email Notify
+description: 'Notify user on node update.'
+type: module
+package: Custom
+core_version_requirement: ^9 || ^10

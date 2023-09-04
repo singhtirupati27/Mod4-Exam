@@ -1,0 +1,32 @@
+uuid: ef707db6-a511-4ff7-a4a5-57ffc9a4f451
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.article
+    - node.type.news
+  module:
+    - devel_generate
+    - field_permissions
+    - node
+    - system
+    - toolbar
+id: editor
+label: Editor
+weight: 5
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access toolbar'
+  - 'administer devel_generate'
+  - 'create article content'
+  - 'create field_hash_tags'
+  - 'create news content'
+  - 'delete own news content'
+  - 'edit any news content'
+  - 'edit field_hash_tags'
+  - 'edit own field_hash_tags'
+  - 'edit own news content'
+  - 'view field_hash_tags'
+  - 'view own field_hash_tags'

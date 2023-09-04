@@ -1,0 +1,14 @@
+uuid: 8b41b1dc-329a-46da-88c5-6c36091b726f
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user_url
+label: 'User URL'
+type: 'canonical_entities:user'
+pattern: '/user/[user:account-name]'
+selection_criteria: {  }
+selection_logic: and
+weight: 0
+relationships: {  }
