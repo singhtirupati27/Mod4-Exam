@@ -78,20 +78,61 @@ function email_notify_entity_update(EntityInterface $entity) {
 }
 
 /**
+ * Implements hook_entity_delete().
+ */
+function email_notify_entity_delete(EntityInterface $entity) {
+  // Check if the bundle is of news type.
+  if ($entity->bundle() == 'news') {
+    // Fetch current node title.
+    $node = \Drupal::routeMatch()->getParameter('node');
+    $title = $node->getTitle();
+    $ids = \Drupal::entityQuery('user')
+      ->accessCheck(TRUE)
+      ->condition('status', 1)
+      ->condition('roles', 'editor')
+      ->execute();
+    $users = User::loadMultiple($ids);
+    $mail_to = [];
+    // Get every users email id.
+    foreach ($users as $user) {
+      $user_mail = $user->get('mail')->getString();
+      $mail_to[] = $user_mail;
+    }
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $module = 'email_notify';
+    $key = 'delete-email';
+    $to = implode(", ", $mail_to);
+    $params['message'] = $title . ' has been deleted.';
+    $langcode = \Drupal::currentUser()->getPreferredLangcode();
+    $send = TRUE;
+    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+    // Check if mail has been sent or not.
+    if ($result['result'] !== TRUE) {
+      \Drupal::messenger()->addMessage(t('There was a problem sending email.'), 'error');
+    }
+    else {
+      \Drupal::messenger()->addMessage(t('Email has been sent.'));
+    }
+  }
+}
+
+/**
  * Implements hook_mail().
  */
 function email_notify_mail($key, &$message, $params) {
+  $message['from'] = \Drupal::config('system.site')->get('mail');
+  $message['body'][] = $params['message'];
   switch ($key) {
     case 'update-email':
-      $message['from'] = \Drupal::config('system.site')->get('mail');
       $message['subject'] = t('Content Updated');
-      $message['body'][] = $params['message'];
       break;
 
     case 'content-added-email':
-      $message['from'] = \Drupal::config('system.site')->get('mail');
       $message['subject'] = t('Content Added');
-      $message['body'][] = $params['message'];
+      break;
+
+    case 'delete-email':
+      $message['subject'] = t('Content Deleted');
       break;
   }
 }

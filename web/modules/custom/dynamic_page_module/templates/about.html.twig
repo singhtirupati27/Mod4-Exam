@@ -1,0 +1,15 @@
+<div class="leader-dashboard">
+  <div class="leaders">
+    {% if leadership_data is empty %}
+      <p>No records found!</p>
+    {% else %}
+      {% for data in leadership_data %}
+        <div>
+        <p> Name: {{ data.name }}</p>
+        <p> Designation: {{ data.dg }}</p>
+        <p> LinkedIn Url: {{ data.url }}</p>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>

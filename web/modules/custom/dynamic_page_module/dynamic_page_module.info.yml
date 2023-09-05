@@ -1,0 +1,5 @@
+name: Dynamic Page Module
+description: 'This module will provide dynamic about us page.'
+type: module
+package: Custom
+core_version_requirement: ^9 || ^10
