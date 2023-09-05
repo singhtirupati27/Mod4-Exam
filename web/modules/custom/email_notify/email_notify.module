@@ -1,0 +1,138 @@
+<?php
+
+/**
+ * @file
+ * Provides functionality to send emails.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\Entity\Node;
+use Drupal\user\Entity\User;
+
+/**
+ * Implements hook_entity_insert().
+ */
+function email_notify_entity_insert(EntityInterface $entity) {
+  // Check if the bundle is of news type.
+  if ($entity->bundle() == 'news') {
+    $node = Node::load($entity->id());
+    $uid = $node->getOwnerId();
+    $title = $node->get('title')->value;
+    $user = User::load($uid);
+    $editor_data = $user->get('field_editor_in_charge')->getValue();
+    $editor_in_charge = [];
+    // Get user's email by it's id.
+    foreach ($editor_data as $editor_id) {
+      $editor_in_charge[] = User::load($editor_id['target_id'])->getEmail();
+    }
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $module = 'email_notify';
+    $key = 'content-added-email';
+    $to = implode(", ", $editor_in_charge);
+    $params['message'] = $title . ' news has been added.';
+    $langcode = \Drupal::currentUser()->getPreferredLangcode();
+    $send = TRUE;
+    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+    // Check if mail has been sent or not.
+    if ($result['result'] !== TRUE) {
+      \Drupal::messenger()->addMessage(t('There was a problem sending email.'), 'error');
+    }
+    else {
+      \Drupal::messenger()->addMessage(t('Email has been sent.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function email_notify_entity_update(EntityInterface $entity) {
+  // Check if the bundle is of news type.
+  if ($entity->bundle() == 'news') {
+    $node = Node::load($entity->id());
+    $uid = $node->getOwnerId();
+    $title = $node->get('title')->value;
+    $user = User::load($uid);
+    $editor_data = $user->get('field_editor_in_charge')->getValue();
+    $editor_in_charge = [];
+    // Get user's email by it's id.
+    foreach ($editor_data as $editor_id) {
+      $editor_in_charge[] = User::load($editor_id['target_id'])->getEmail();
+    }
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $module = 'email_notify';
+    $key = 'update-email';
+    $to = implode(", ", $editor_in_charge);
+    $params['message'] = $title . ' has been updated.';
+    $langcode = \Drupal::currentUser()->getPreferredLangcode();
+    $send = TRUE;
+    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+    // Check if mail has been sent or not.
+    if ($result['result'] !== TRUE) {
+      \Drupal::messenger()->addMessage(t('There was a problem sending email.'), 'error');
+    }
+    else {
+      \Drupal::messenger()->addMessage(t('Email has been sent.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function email_notify_entity_delete(EntityInterface $entity) {
+  // Check if the bundle is of news type.
+  if ($entity->bundle() == 'news') {
+    // Fetch current node title.
+    $node = \Drupal::routeMatch()->getParameter('node');
+    $title = $node->getTitle();
+    $ids = \Drupal::entityQuery('user')
+      ->accessCheck(TRUE)
+      ->condition('status', 1)
+      ->condition('roles', 'editor')
+      ->execute();
+    $users = User::loadMultiple($ids);
+    $mail_to = [];
+    // Get every users email id.
+    foreach ($users as $user) {
+      $user_mail = $user->get('mail')->getString();
+      $mail_to[] = $user_mail;
+    }
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $module = 'email_notify';
+    $key = 'delete-email';
+    $to = implode(", ", $mail_to);
+    $params['message'] = $title . ' has been deleted.';
+    $langcode = \Drupal::currentUser()->getPreferredLangcode();
+    $send = TRUE;
+    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+    // Check if mail has been sent or not.
+    if ($result['result'] !== TRUE) {
+      \Drupal::messenger()->addMessage(t('There was a problem sending email.'), 'error');
+    }
+    else {
+      \Drupal::messenger()->addMessage(t('Email has been sent.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function email_notify_mail($key, &$message, $params) {
+  $message['from'] = \Drupal::config('system.site')->get('mail');
+  $message['body'][] = $params['message'];
+  switch ($key) {
+    case 'update-email':
+      $message['subject'] = t('Content Updated');
+      break;
+
+    case 'content-added-email':
+      $message['subject'] = t('Content Added');
+      break;
+
+    case 'delete-email':
+      $message['subject'] = t('Content Deleted');
+      break;
+  }
+}

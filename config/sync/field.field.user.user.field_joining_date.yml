@@ -1,0 +1,32 @@
+uuid: d16c169e-15dc-4f5e-a7b4-ccbee447686a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_joining_date
+  module:
+    - datetime
+    - multiple_registration
+    - user
+third_party_settings:
+  multiple_registration:
+    user_additional_register_form_required:
+      authenticated: 0
+      news_anchor: 0
+      editor: 0
+    user_additional_register_form:
+      news_anchor: news_anchor
+      editor: editor
+      authenticated: 0
+id: user.user.field_joining_date
+field_name: field_joining_date
+entity_type: user
+bundle: user
+label: 'Joining Date'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

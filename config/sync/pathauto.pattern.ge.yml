@@ -1,0 +1,22 @@
+uuid: eebe36aa-e029-4ac4-a4e2-39ce2819c674
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: ge
+label: 'Genre URL'
+type: 'canonical_entities:taxonomy_term'
+pattern: '/genres/[term:name]'
+selection_criteria:
+  6c3211f4-ae82-4acb-83e2-7f72a2fc8d78:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 6c3211f4-ae82-4acb-83e2-7f72a2fc8d78
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      genres: genres
+selection_logic: and
+weight: -5
+relationships: {  }

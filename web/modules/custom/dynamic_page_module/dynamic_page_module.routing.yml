@@ -1,0 +1,15 @@
+dynamic_page_module.about-us:
+  path: '/about-us'
+  defaults:
+    _controller: '\Drupal\dynamic_page_module\Controller\DynamicPageModuleController::aboutPage'
+    _title: 'About Us'
+  requirements:
+    _permission: 'access content'
+
+dynamic_page_module.leadership:
+  path: '/form/leadership'
+  defaults:
+    _title: 'Leadership'
+    _form: 'Drupal\dynamic_page_module\Form\LeadershipForm'
+  requirements:
+    _permission: 'access content'

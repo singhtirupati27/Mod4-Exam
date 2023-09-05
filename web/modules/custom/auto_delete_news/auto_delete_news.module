@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Provides functionality to delete nodes automatically.
+ */
+
+use Drupal\node\Entity\Node;
+
+/**
+ * Implements hook_cron().
+ */
+function auto_delete_news_cron() {
+  $days_to_delete = strtotime('-6 months');
+  $query = \Drupal::entityQuery('node');
+  // Fetch and delete nodes older than defined duration.
+  $query->condition('type', 'news')
+    ->condition('status', 1)
+    ->condition('created', $days_to_delete, '<')
+    ->accessCheck(TRUE);
+  $node_ids = $query->execute();
+  // Iterate over each node and delete it.
+  foreach ($node_ids as $nid) {
+    // $node = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
+    $node = Node::load($nid);
+    $node->delete();
+    // Log a message for deleted nodes.
+    \Drupal::logger('auto_delete_news')->notice('Deleted news with node id: @nid', ['@nid' => $nid]);
+  }
+}

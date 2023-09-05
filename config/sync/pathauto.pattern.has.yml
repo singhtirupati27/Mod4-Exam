@@ -1,0 +1,22 @@
+uuid: 52986f69-cd5d-47f5-9dfb-4911653436d7
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: has
+label: 'Hash Tags URL'
+type: 'canonical_entities:taxonomy_term'
+pattern: '/hash-tags/[term:name]'
+selection_criteria:
+  0ddf7257-fa24-4229-a98c-9ad5a3f3f436:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 0ddf7257-fa24-4229-a98c-9ad5a3f3f436
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      hash_tag: hash_tag
+selection_logic: and
+weight: -5
+relationships: {  }

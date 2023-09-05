@@ -1,0 +1,25 @@
+uuid: f81c0176-b5b7-47be-b79a-42bad31a48db
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.news
+  module:
+    - devel_generate
+    - field_permissions
+    - node
+    - system
+    - toolbar
+id: news_anchor
+label: 'News Anchor'
+weight: 4
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access toolbar'
+  - 'administer devel_generate'
+  - 'create news content'
+  - 'delete own news content'
+  - 'edit own news content'
+  - 'view field_hash_tags'

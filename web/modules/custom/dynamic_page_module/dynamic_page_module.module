@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Provide template for about us page.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function dynamic_page_module_theme($existing, $type, $theme, $path): array {
+  return [
+    'about' => [
+      'variables' => [
+        'leadership_data' => NULL,
+      ],
+    ],
+  ];
+}

@@ -1,6 +1,7 @@
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
 module:
+  auto_delete_news: 0
   automated_cron: 0
   big_pipe: 0
   block: 0
@@ -9,13 +10,17 @@ module:
   ckeditor5: 0
   comment: 0
   config: 0
+  config_filter: 0
+  config_split: 0
   contact: 0
   contextual: 0
   datetime: 0
-  dblog: 0
   dynamic_page_cache: 0
+  dynamic_page_module: 0
   editor: 0
+  email_notify: 0
   field: 0
+  field_permissions: 0
   field_ui: 0
   file: 0
   filter: 0
@@ -25,6 +30,8 @@ module:
   link: 0
   menu_link_content: 0
   menu_ui: 0
+  multiple_registration: 0
+  multivalue_form_element: 0
   mysql: 0
   node: 0
   options: 0
@@ -33,14 +40,16 @@ module:
   path_alias: 0
   search: 0
   shortcut: 0
+  smtp: 0
   standard: 0
   system: 0
   taxonomy: 0
   text: 0
+  token: 0
   toolbar: 0
   tour: 0
   user: 0
-  views_ui: 0
+  pathauto: 1
   views: 10
 theme:
   olivero: 0

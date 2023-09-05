@@ -1,0 +1,50 @@
+<?php
+
+use Drupal\Core\Database\Database;
+
+/**
+ * Implements hook_schema().
+ */
+function dynamic_page_module_schema() {
+  $schema['leaders'] = [
+    'descritpion' => t('This table store leadership data.'),
+    'fields' => [
+      'id' => [
+        'description' => t('Leadership id.'),
+        'type' => 'serial',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+      ],
+      'name' => [
+        'description' => t('Name'),
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'designation' => [
+        'description' => t('Designation'),
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'linkedin_url' => [
+        'description' => t('Linkedin url'),
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'profile_image' => [
+        'description' => t('Profile image'),
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+    ],
+    'primary key' => array('id'),
+  ];
+  return $schema;
+}
