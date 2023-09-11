@@ -5,11 +5,12 @@ namespace Drupal\dynamic_page_module\Form;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\file\Entity\File;
 
 /**
  * Provides a Dynamic Page Module form.
  */
-final class LeadershipForm extends FormBase {
+class LeadershipForm extends FormBase {
 
   /**
    * {@inheritdoc}
@@ -41,8 +42,13 @@ final class LeadershipForm extends FormBase {
         '#required' => TRUE,
       ],
       'profile_image' => [
-        '#type' => 'file',
+        '#type' => 'managed_file',
         '#title' => $this->t('Profile Image'),
+        '#name' => 'profile_image',
+        '#upload_location' => 'public://',
+        '#upload_validators' => [
+          'file_validate_extensions' => ['png jpg jpeg gif'],
+        ],
         '#required' => TRUE,
       ],
     ];
@@ -68,16 +74,26 @@ final class LeadershipForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     try {
+      $field = $form_state->getValues()['leadership'];
       $connection = Database::getConnection();
       $field = $form_state->getValues()['leadership'];
       foreach ($field as $field_data) {
-        $fields['name'] = $field_data['name'];
-        $fields['designation'] = $field_data['designation'];
-        $fields['linkedin_url'] = $field_data['linkedin_url'];
-        $fields['profile_image'] = $field_data['profile_image'];
+        $image_file = File::load($field_data['profile_image'][0]);
+        $file_usage = \Drupal::service('file.usage');
+        if (gettype($image_file) == 'object') {
+          $image_file->setPermanent();
+          $image_file->save();
+          $file_usage->add($image_file, 'dynamic_page_module', 'file', $field_data['profile_image'][0]);
+        }
+        $fields = [
+          'name' => $field_data['name'],
+          'designation' => $field_data['designation'],
+          'linkedin_url' => $field_data['linkedin_url'],
+          'profile_image' => $field_data['profile_image'][0],
+        ];
         $connection->insert('leaders')
-        ->fields($fields)
-        ->execute();
+          ->fields($fields)
+          ->execute();
       }
       $this->messenger()->addStatus($this->t('Your data has been submitted.'));
     }

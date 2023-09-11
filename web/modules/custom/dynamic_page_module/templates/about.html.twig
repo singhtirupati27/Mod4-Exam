@@ -1,13 +1,63 @@
 <div class="leader-dashboard">
+  <h2>Leadership</h2>
   <div class="leaders">
     {% if leadership_data is empty %}
       <p>No records found!</p>
     {% else %}
-      {% for data in leadership_data %}
-        <div>
-        <p> Name: {{ data.name }}</p>
-        <p> Designation: {{ data.dg }}</p>
-        <p> LinkedIn Url: {{ data.url }}</p>
+      <table class="table table-striped table-hover">
+        <thead class="table-primary">
+          <tr class="leader-data">
+            <th class="leader-info">Name</th>
+            <th class="leader-info">Designation</th>
+            <th class="leader-info">LinkedIn Profile</th>
+            <th class="leader-info">Profile Image</th>
+          </tr>
+        <thead>
+        <tbody>
+          {% for data in leadership_data %}
+            <tr class="leader-data">
+              <td>{{ data.name }}</td>
+              <td>{{ data.dg }}</td>
+              <td><a href="{{ data.url }}" class="linkedin-url">{{ data.url }}</a></td>
+              <td class="leader-image"><img src="{{ data.img }}" alt="{{ data.img }}"></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  </div>
+</div>
+<div class="best-anchor">
+  <h2>Best Anchor Of This Week</h2>
+  <div class="anchor">
+    {% if user_data is empty %}
+      <p>No records found!</p>
+    {% else %}
+      <div>
+        <h3>{{ user_data.name }}</h3>
+        <p>{{ user_data.desc }}</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+<div class="news-section">
+  <h3>Latest News by {{ user_data.name }}</h3>
+  <div class="news">
+    {% if user_news is empty %}
+      <p>No records found!</p>
+    {% else %}
+      {% for news in user_news %}
+        <div class="news-div">
+          <div class="news-img">
+            <img src="{{ news.news_img }}" alt="{{ news.news_img }}">
+          </div>
+          <div class="news-info">
+            <a href="{{ news.news_url }}"><h4>{{ news.news_title }}</h4></a>
+            <p>{{ news.news_desc|length > 200 ? news.news_desc|slice(0, 100)|raw ~ '..' : news.news_desc|raw }}</p>
+            <p>{{ news.news_category }}</p>
+            <p>{{ news.news_hash_tags }}</p>
+            <p>{{ news.news_created_by }}</p>
+          </div>
         </div>
       {% endfor %}
     {% endif %}

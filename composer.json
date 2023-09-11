@@ -29,6 +29,7 @@
         "drupal/pathauto": "^1.11",
         "drupal/smtp": "^1.2",
         "drupal/twig_tweak": "^3.2",
+        "drupal/unique_content_field_validation": "^1.1",
         "drush/drush": "^12.1"
     },
     "conflict": {

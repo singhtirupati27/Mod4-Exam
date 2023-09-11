@@ -1,0 +1,45 @@
+.leader-dashboard h2, .best-anchor h2 {
+  text-align: center;
+}
+
+.leaders table {
+  width: 100%;
+}
+
+.leader-info {
+  width: 25%;
+  text-decoration: underline;
+}
+
+.leader-data {
+  text-align: center;
+}
+
+.leader-image {
+  display: flex;
+  justify-content: center;
+}
+
+.leader-image img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.anchor {
+  text-align: center;
+}
+
+.news-img img {
+  height: 150px;
+  width: 150px;
+}
+
+.news {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.news-div {
+  padding: 0 10px;
+}

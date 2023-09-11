@@ -13,3 +13,11 @@ dynamic_page_module.leadership:
     _form: 'Drupal\dynamic_page_module\Form\LeadershipForm'
   requirements:
     _permission: 'access content'
+
+dynamic_page_module.achor:
+  path: '/form/best-anchor'
+  defaults:
+    _title: 'Best Anchor'
+    _form: 'Drupal\dynamic_page_module\Form\BestAnchorForm'
+  requirements:
+    _permission: 'access content'

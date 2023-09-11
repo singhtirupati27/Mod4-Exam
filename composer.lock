@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "539cab7c43e2a3d10ac3bd012ff003cf",
+    "content-hash": "fcc22c787f44f04fe833145596453f7b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2719,6 +2719,52 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/twig_tweak",
                 "issues": "https://www.drupal.org/project/issues/twig_tweak"
+            }
+        },
+        {
+            "name": "drupal/unique_content_field_validation",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/unique_content_field_validation.git",
+                "reference": "1.1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/unique_content_field_validation-1.1.1.zip",
+                "reference": "1.1.1",
+                "shasum": "a6fdc0b33e3a022fbc8f2decc8b0488ebe79cb82"
+            },
+            "require": {
+                "drupal/core": "^9.1 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.1",
+                    "datestamp": "1688169108",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Fabian Sierra",
+                    "homepage": "https://www.drupal.org/u/fabiansierra5191",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Validate the uniqueness of the entities fields or title.",
+            "homepage": "http://drupal.org/project/unique_content_field_validation",
+            "support": {
+                "source": "https://cgit.drupalcode.org/unique_content_field_validation",
+                "issues": "https://drupal.org/project/issues/unique_content_field_validation"
             }
         },
         {

@@ -13,7 +13,20 @@ function dynamic_page_module_theme($existing, $type, $theme, $path): array {
     'about' => [
       'variables' => [
         'leadership_data' => NULL,
+        'user_data' => NULL,
+        'user_news' => NULL,
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function dynamic_page_module_page_attachments_alter(array &$attachments) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  // Check whether if route name is of required type.
+  if ($route_name == 'dynamic_page_module.about-us') {
+    $attachments['#attached']['library'][] = 'dynamic_page_module/dynamic_page_module.about';
+  }
 }

@@ -1,0 +1,5 @@
+dynamic_page_module.about:
+  version: 1.x
+  css:
+    theme:
+      css/about.css: {}
